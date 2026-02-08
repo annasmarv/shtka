@@ -1,0 +1,6 @@
+# Redirect root to dashboard (masuk dengan login terlebih dahulu)
+# Jika sudah login via session, akan langsung ke dashboard
+# Jika belum login, auth.js akan redirect ke login.html
+
+# Prevent direct access to sensitive JSON files - Not needed since these are loaded via fetch
+# and require authentication (handled by JavaScript)

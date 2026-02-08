@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'sevka': '#FF9900',
+                        'sevka-light': '#FFBF69',
+                        'sevka-dark': '#E68A00',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            @apply bg-gray-50;
+        }
+
+        [data-lucide] {
+            display: inline-block;
+            vertical-align: middle;
+            width: 1em;
+            height: 1em;
+            stroke: currentColor;
+        }
+
+        .nav-item.active {
+            @apply bg-blue-600 text-orange-700 font-semibold shadow-md;
+        }
+
+        .nav-item.active [data-lucide] {
+            stroke: rgb(234, 177, 62);
+        }
+
+        .nav-item:not(.active) {
+            @apply text-gray-700 font-medium;
+        }
+
+        .nav-item:not(.active):hover {
+            @apply bg-gray-100;
+        }
+
+        .card-shadow {
+            @apply shadow-sm;
+        }
+
+        .card-shadow:hover {
+            @apply shadow-md;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+        <div class="px-4 md:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-1">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sevka to-sevka-dark flex items-center justify-center shadow-md flex-shrink-0">
+                    <i data-lucide="origami" class="w-6 h-6 text-white"></i>
+                </div>
+                <div class="flex flex-col -space-y-1">
+                    <p class="font-extrabold text-2xl leading-tight text-gray-900">my<span class="text-sevka">SEVKA</span></p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="logoutBtn" class="px-4 py-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition font-medium text-sm">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col lg:flex-row">
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:flex lg:flex-col w-64 bg-white border-r border-gray-200 p-6 fixed top-16 left-0 h-[calc(100vh-64px)] overflow-y-auto">
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition cursor-pointer">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Beranda</span>
+                </a>
+                <a href="comingsoon.html" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition cursor-pointer">
+                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    <span>Presensi</span>
+                </a>
+                <a href="comingsoon.html" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition cursor-pointer">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                    <span>Jurnal</span>
+                </a>
+                <a href="comingsoon.html" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition cursor-pointer">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Kelasku</span>
+                </a>
+                <a href="profil.html" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition cursor-pointer">
+                    <i data-lucide="user-circle" class="w-5 h-5"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="app-content" class="flex-1 pb-24 lg:pb-0 min-h-[calc(100vh-64px)] lg:ml-64">
+            <div class="px-4 md:px-8 py-6 md:py-8">
+                
+                <!-- Beranda Section -->
+                <section id="beranda" class="page-content space-y-8">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-1" id="greetingName">Halo, Siswa! 👋</h1>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Semangat belajar untuk hari ini!</p>
+                    </div>
+
+                    <!-- Student Info Card -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-100 hover:border-gray-200 transition-all card-shadow">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-4">Profil Siswa</p>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Nama</p>
+                                        <p class="text-lg font-semibold text-gray-900" id="studentName">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">NIS</p>
+                                        <p class="text-lg font-semibold text-gray-900" id="studentNIS">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">NISN</p>
+                                        <p class="text-lg font-semibold text-gray-900" id="studentNISN">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Jenis Kelamin</p>
+                                        <p class="text-lg font-semibold text-gray-900" id="studentGender">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Tempat Lahir</p>
+                                        <p class="text-lg font-semibold text-gray-900" id="studentbirthPlace">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Tanggal Lahir</p>
+                                        <p class="text-lg font-semibold text-gray-900" id="studentBirthDate">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center flex-shrink-0 overflow-hidden" id="avatarContainer">
+                                <div class="w-full h-full rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-white" id="avatarInitials">S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Access Menu -->
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900 mb-4">Menu</h2>
+                        <div class="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-2">
+                            <!-- Kelasku Card -->
+                            <a href="/comingsoon.html" class="flex flex-col items-center gap-2 p-2 rounded-lg bg-white border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all group">
+                                <div class="p-2 rounded-full bg-blue-50 group-hover:bg-blue-100 transition-colors">
+                                    <i data-lucide="book" class="w-6 h-6 text-blue-600"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-gray-900 text-center line-clamp-2">Kelasku</p>
+                            </a>
+
+                            <!-- Tugas Card -->
+                            <a href="/comingsoon.html" class="flex flex-col items-center gap-2 p-2 rounded-lg bg-white border border-gray-100 hover:border-emerald-200 hover:shadow-md transition-all group">
+                                <div class="p-2 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
+                                    <i data-lucide="list-checks" class="w-6 h-6 text-emerald-600"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-gray-900 text-center line-clamp-2">Tugas</p>
+                            </a>
+
+                            <!-- Presensi Card -->
+                            <a href="/comingsoon.html" class="flex flex-col items-center gap-2 p-2 rounded-lg bg-white border border-gray-100 hover:border-cyan-200 hover:shadow-md transition-all group">
+                                <div class="p-2 rounded-full bg-cyan-50 group-hover:bg-cyan-100 transition-colors">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-cyan-600"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-gray-900 text-center line-clamp-2">Presensi</p>
+                            </a>
+
+                            <!-- Jurnal Card -->
+                            <a href="/comingsoon.html" class="flex flex-col items-center gap-2 p-2 rounded-lg bg-white border border-gray-100 hover:border-purple-200 hover:shadow-md transition-all group">
+                                <div class="p-2 rounded-full bg-purple-50 group-hover:bg-purple-100 transition-colors">
+                                    <i data-lucide="book-open" class="w-6 h-6 text-purple-600"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-gray-900 text-center line-clamp-2">Jurnal</p>
+                            </a>
+
+                            <!-- Data Siswa Card -->
+                            <a href="/comingsoon.html" class="flex flex-col items-center gap-2 p-2 rounded-lg bg-white border border-gray-100 hover:border-rose-200 hover:shadow-md transition-all group">
+                                <div class="p-2 rounded-full bg-rose-50 group-hover:bg-rose-100 transition-colors">
+                                    <i data-lucide="users" class="w-6 h-6 text-rose-600"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-gray-900 text-center line-clamp-2">Data Siswa</p>
+                            </a>
+
+                            <!-- Rapor Card -->
+                            <a href="/comingsoon.html" class="flex flex-col items-center gap-2 p-2 rounded-lg bg-white border border-gray-100 hover:border-violet-200 hover:shadow-md transition-all group">
+                                <div class="p-2 rounded-full bg-violet-50 group-hover:bg-violet-100 transition-colors">
+                                    <i data-lucide="award" class="w-6 h-6 text-violet-600"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-gray-900 text-center line-clamp-2">Rapor</p>
+                            </a>
+
+                            <!-- Sertifikat TKA Card -->
+                            <button onclick="scrollToSection('sertifikat')" class="flex flex-col items-center gap-2 p-2 rounded-lg bg-white border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all group" id="btn-sertifikat-tka">
+                                <div class="p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors">
+                                    <i data-lucide="book-open-check" class="w-6 h-6 text-gray-600"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-gray-900 text-center line-clamp-2">Sertifikat TKA</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Jadwal Hari Ini Section -->
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900 mb-4">Jadwal Hari Ini</h2>
+                        <div class="mb-4 overflow-x-auto pb-2" id="dateSelector">
+                            <div class="flex gap-2 min-w-max" id="dateSelectorButtons">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                        </div>
+                        <!-- Empty Schedule State -->
+                        <div class="bg-white p-8 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center">
+                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                                <i data-lucide="calendar" class="w-8 h-8 text-gray-400"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Belum Ada Jadwal</h3>
+                            <p class="text-sm text-gray-600">Jadwal Belum Tersedia</p>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Sertifikat Section -->
+                <section id="sertifikat" class="page-content space-y-6 hidden">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-1">Unduh Sertifikat Hasil TKA</h1>
+                    </div>
+
+                    <!-- Certificate Download Card -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+                        <div class="flex items-start justify-between mb-6">
+                            <div>
+                                <h2 class="text-2xl font-bold text-blue-900 mb-2">Sertifikat Hasil Tes Kompetensi Akademik</h2>
+                                <p class="text-blue-700">Sertifikat ini membuktikan hasil tes kompetensi akademik Anda.</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-blue-200">
+                                <i data-lucide="award" class="w-8 h-8 text-blue-600"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-xs font-semibold text-gray-600 uppercase mb-2">Nama Penerima</p>
+                                <p class="text-lg font-semibold text-gray-900" id="certName">-</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-xs font-semibold text-gray-600 uppercase mb-2">NISN</p>
+                                <p class="text-lg font-semibold text-gray-900" id="certNISN">-</p>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <a id="downloadLink" href="#" download class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                                    <i data-lucide="download" class="w-5 h-5"></i>
+                                    <span>Download Sertifikat</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Alert -->
+                    <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                        <div class="flex gap-3">
+                            <i data-lucide="alert-circle" class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <p class="font-semibold text-yellow-900">Informasi Penting</p>
+                                <p class="text-sm text-yellow-800 mt-1">Sertifikat PDF akan dibuka di tab baru. Pastikan browser Anda mengizinkan popup sebelum mengklik tombol download.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-20">
+        <div class="grid grid-cols-4 gap-1 p-2">
+            <button onclick="scrollToSection('beranda')" class="nav-item flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition">
+                <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+                <span class="text-xs font-semibold">Beranda</span>
+            </button>
+            <a href="comingsoon.html" class="nav-mobile-item flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition">
+                <i data-lucide="check-circle" class="w-6 h-6"></i>
+                <span class="text-xs font-semibold">Presensi</span>
+            </a>
+            <a href="comingsoon.html" class="nav-mobile-item flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition">
+                <i data-lucide="users" class="w-6 h-6"></i>
+                <span class="text-xs font-semibold">Kelasku</span>
+            </a>
+            <a href="profil.html" class="nav-mobile-item flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition">
+                <i data-lucide="user-circle" class="w-6 h-6"></i>
+                <span class="text-xs font-semibold">Profil</span>
+            </a>
+        </div>
+    </nav>
+    <script src="./auth.js"></script>
+    <script>
+        // Global variables
+        let currentUser = null;
+
+        // Navigation function - GLOBAL
+        function scrollToSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.page-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Update sidebar nav
+            document.querySelectorAll('aside .nav-item').forEach(item => {
+                if (item.getAttribute('href') === `#${sectionId}`) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Update bottom nav
+            const bottomNavButtons = document.querySelectorAll('nav:last-of-type button');
+            const sectionOrder = ['beranda', 'sertifikat', 'profil'];
+            const index = sectionOrder.indexOf(sectionId);
+            if (index !== -1 && bottomNavButtons[index]) {
+                bottomNavButtons[index].classList.add('active');
+                bottomNavButtons.forEach((btn, i) => {
+                    if (i !== index) btn.classList.remove('active');
+                });
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Print function - GLOBAL
+        function printCertificate() {
+            if (currentUser && currentUser.url) {
+                window.open(currentUser.url, '_blank');
+            }
+        }
+
+        // Initialize dashboard
+        (async function() {
+            await requireLogin();
+
+            currentUser = auth.getCurrentUser();
+
+            // Load user data
+            function loadUserData() {
+                if (!currentUser) return;
+
+                // Format gender
+                const genderText = currentUser.gender === 'L' ? 'Laki-laki' : 'Perempuan';
+
+                // Generate initials from user name
+                const namaParts = currentUser.nama.split(' ');
+                const initial = (namaParts[0]?.charAt(0) + (namaParts[1]?.charAt(0) || namaParts[0]?.charAt(1) || '')).toUpperCase();
+
+                // Update Beranda section
+                document.getElementById('greetingName').textContent = `Halo, ${currentUser.nama}! 👋`;
+                document.getElementById('studentName').textContent = currentUser.nama;
+                document.getElementById('studentNIS').textContent = currentUser.nis;
+                document.getElementById('studentNISN').textContent = currentUser.nisn;
+                document.getElementById('studentGender').textContent = genderText;
+                document.getElementById('studentbirthPlace').textContent = currentUser.birth_place;
+                document.getElementById('studentBirthDate').textContent = currentUser.birth_date;
+
+                // Update avatar with profile photo or initials
+                const avatarContainer = document.getElementById('avatarContainer');
+                if (avatarContainer && currentUser.profil) {
+                    avatarContainer.innerHTML = `<img src="${currentUser.profil}" alt="Avatar" class="w-full h-full rounded-full object-cover">`;
+                } else {
+                    document.getElementById('avatarInitials').textContent = initial;
+                }
+
+                // Update Sertifikat section
+                document.getElementById('certName').textContent = currentUser.nama;
+                document.getElementById('certNISN').textContent = currentUser.nisn;
+
+                // Setup download link
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = currentUser.url;
+                downloadLink.target = '_blank';
+                downloadLink.rel = 'noopener noreferrer';
+
+                // Update Profil section (if elements exist)
+                const profileElements = {
+                    profileName: currentUser.nama,
+                    profileGender: genderText,
+                    profileBirthPlace: currentUser.birth_place,
+                    profileBirthDate: currentUser.birth_date,
+                    profileNIS: currentUser.nis,
+                    profileNISN: currentUser.nisn,
+                    profileClassName: currentUser.class
+                };
+                
+                Object.entries(profileElements).forEach(([id, value]) => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.textContent = value;
+                    }
+                });
+
+                // Show/hide Sertifikat TKA button based on shtka property
+                const sertifikatBtn = document.getElementById('btn-sertifikat-tka');
+                if (sertifikatBtn) {
+                    if (currentUser.shtka === false) {
+                        sertifikatBtn.style.display = 'none';
+                    } else {
+                        sertifikatBtn.style.display = 'flex';
+                    }
+                }
+            }
+
+            // Load data on page load
+            loadUserData();
+
+            // Sidebar nav click handlers
+            document.querySelectorAll('aside .nav-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const href = item.getAttribute('href');
+                    const sectionId = href.substring(1);
+                    scrollToSection(sectionId);
+                });
+            });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                if (confirm('Apakah Anda yakin ingin logout?')) {
+                    auth.logout();
+                    window.location.href = './login.html';
+                }
+            });
+
+            // Generate week date selector
+            function generateDateSelector() {
+                const buttonContainer = document.getElementById('dateSelectorButtons');
+                if (!buttonContainer) return;
+                
+                const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                const today = new Date();
+                
+                for (let i = 0; i < 7; i++) {
+                    const date = new Date(today);
+                    date.setDate(date.getDate() + i);
+                    
+                    const dayOfWeek = date.getDay();
+                    const dateFormatted = date.getDate();
+                    const isToday = date.toDateString() === today.toDateString();
+                    const dayName = dayNames[dayOfWeek];
+                    const shortDayName = dayName.substring(0, 3);
+                    
+                    const button = document.createElement('button');
+                    button.className = `flex flex-col items-center gap-1 px-3 py-2 rounded-lg border transition-all ${
+                        isToday 
+                            ? 'bg-blue-100 border-blue-300' 
+                            : 'bg-white border-gray-200 hover:border-gray-300'
+                    }`;
+                    
+                    const daySpan = document.createElement('p');
+                    daySpan.className = `text-xs font-semibold ${
+                        isToday 
+                            ? 'text-blue-600' 
+                            : 'text-gray-600'
+                    }`;
+                    daySpan.textContent = shortDayName;
+                    
+                    const dateSpan = document.createElement('p');
+                    dateSpan.className = `text-sm font-bold ${
+                        isToday 
+                            ? 'text-blue-700' 
+                            : 'text-gray-900'
+                    }`;
+                    dateSpan.textContent = dateFormatted;
+                    
+                    button.appendChild(daySpan);
+                    button.appendChild(dateSpan);
+                    buttonContainer.appendChild(button);
+                }
+            }
+            
+            // Call date selector generation
+            generateDateSelector();
+
+            // Initialize Lucide icons
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        })();
+    </script>
+
+</body>
+</html>

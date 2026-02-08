@@ -1,0 +1,39 @@
+/* 
+  # Security Headers untuk semua file
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# Sensitive JSON files - Prevent indexing dan caching
+/data_siswa.json
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache, must-revalidate, private
+  Content-Type: application/json; charset=utf-8
+
+/user.json
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache, must-revalidate, private
+  Content-Type: application/json; charset=utf-8
+
+# HTML files - Allow caching
+*.html
+  Cache-Control: public, max-age=3600
+  Content-Type: text/html; charset=utf-8
+
+# JavaScript files  
+*.js
+  Cache-Control: public, max-age=3600
+  Content-Type: application/javascript; charset=utf-8
+
+# Static assets
+*.css
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.woff
+*.woff2
+  Cache-Control: public, max-age=31536000

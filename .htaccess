@@ -1,0 +1,37 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # Redirect root to dashboard.html
+  RewriteRule ^$ /dashboard.html [L]
+  
+  # Prevent direct access to sensitive JSON files
+  <FilesMatch "^(data_siswa|user)\.json$">
+    Order allow,deny
+    Deny from all
+    
+    # Allow access from same origin (fetch requests)
+    SetEnvIf Request_URI "^/(user|data_siswa).json$" json_request=1
+    Allow from env=json_request
+  </FilesMatch>
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+  # Prevent framing
+  Header always set X-Frame-Options "SAMEORIGIN"
+  
+  # Prevent content type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+  
+  # Enable XSS protection
+  Header always set X-XSS-Protection "1; mode=block"
+  
+  # Referrer policy
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  # Disable indexing for sensitive files
+  <FilesMatch "^(data_siswa|user)\.json$">
+    Header set X-Robots-Tag "noindex, nofollow"
+    Header set Cache-Control "no-store, no-cache, must-revalidate, private"
+  </FilesMatch>
+</IfModule>

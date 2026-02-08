@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon — Sertifikat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'sevka': '#FF9900',
+                        'sevka-light': '#FFBF69',
+                        'sevka-dark': '#E68A00',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        [data-lucide] {
+            display: inline-block;
+            vertical-align: middle;
+            width: 1em;
+            height: 1em;
+            stroke: currentColor;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+        <div class="px-4 md:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sevka to-sevka-dark flex items-center justify-center shadow-md flex-shrink-0">
+                    <i data-lucide="origami" class="w-6 h-6 text-white"></i>
+                </div>
+                <div class="flex flex-col -space-y-1">
+                    <p class="font-extrabold text-2xl leading-tight text-gray-900 dark:text-white">my<span class="text-sevka">SEVKA</span></p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- <a href="./dashboard.html" class="px-4 py-2 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200 transition font-medium text-sm">
+                    Kembali
+                </a> -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-h-[calc(100vh-64px)]">
+        <div class="flex items-center justify-center min-h-[calc(100vh-64px)] px-4">
+            <div class="text-center max-w-md">
+                <!-- Icon -->
+                <div class="mb-6 flex justify-center">
+                    <div class="w-24 h-24 rounded-full bg-sevka-light flex items-center justify-center">
+                        <i data-lucide="hourglass" class="w-12 h-12 text-white"></i>
+                    </div>
+                </div>
+
+                <!-- Heading -->
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Coming Soon</h1>
+
+                <!-- Description -->
+                <p class="text-lg text-gray-600 mb-2">Fitur ini sedang dalam tahap pengembangan.</p>
+                <p class="text-base text-gray-500 mb-8">Kami akan segera meluncurkan fitur baru yang lebih baik. Harap bersabar dan pantau terus aplikasi ini.</p>
+
+                <!-- Feature teaser (optional) -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 mb-8">
+                    <p class="text-sm text-gray-600 mb-3">Fitur yang akan datang:</p>
+                    <ul class="space-y-2 text-left text-sm text-gray-700">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600"></i>
+                            <span>Interface yang lebih baik</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600"></i>
+                            <span>Fitur yang lebih lengkap</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600"></i>
+                            <span>Performa yang lebih cepat</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Back Button -->
+                <a href="./dashboard.html" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition cursor-pointer w-full">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    <span>Kembali ke Dashboard</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+
+</body>
+</html>
