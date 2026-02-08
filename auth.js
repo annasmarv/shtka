@@ -10,11 +10,21 @@ class AuthSystem {
     // Load users from user.json
     try {
       const response = await fetch('./user.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       this.users = await response.json();
       console.log('Users loaded:', this.users.length);
     } catch (error) {
       console.error('Error loading users:', error);
       this.users = [];
+      // Show warning message if in a browser context
+      if (typeof window !== 'undefined' && document.body) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'fixed top-0 left-0 right-0 bg-red-100 text-red-800 p-3 text-center';
+        errorDiv.textContent = 'Gagal memuat data pengguna. Silakan refresh halaman.';
+        document.body.prepend(errorDiv);
+      }
     }
 
     // Check if user is already logged in

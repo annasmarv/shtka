@@ -5,22 +5,28 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Access-Control-Allow-Origin: self
 
-# Sensitive JSON files - Prevent indexing dan caching
+# Block direct access to sensitive JSON files
 /data_siswa.json
   X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store, no-cache, must-revalidate, private
+  Cache-Control: no-store, no-cache, must-revalidate, private, max-age=0
   Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: 
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
 
 /user.json
   X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store, no-cache, must-revalidate, private
+  Cache-Control: no-store, no-cache, must-revalidate, private, max-age=0
   Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: 
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
 
 # HTML files - Allow caching
 *.html
   Cache-Control: public, max-age=3600
   Content-Type: text/html; charset=utf-8
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
 
 # JavaScript files  
 *.js
