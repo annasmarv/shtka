@@ -478,7 +478,7 @@
                         const url = window.URL.createObjectURL(blob);
                         const link = document.createElement('a');
                         link.href = url;
-                        link.download = `Sertifikat-${currentUser.nama.replace(/\s+/g, '-')}.pdf`;
+                        link.download = `Sertifikat TKA-${currentUser.nama.replace(/\s+/g, '-')}.pdf`;
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
