@@ -297,9 +297,13 @@
                             </div>
 
                             <div class="flex gap-4">
+                                <a id="viewLink" href="#" class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition cursor-pointer">
+                                    <i data-lucide="eye" class="w-5 h-5"></i>
+                                    <span>Lihat</span>
+                                </a>
                                 <a id="downloadLink" href="#" download class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition cursor-pointer">
                                     <i data-lucide="download" class="w-5 h-5"></i>
-                                    <span>Download Sertifikat</span>
+                                    <span>Download</span>
                                 </a>
                             </div>
                         </div>
@@ -439,11 +443,16 @@
                 document.getElementById('certName').textContent = currentUser.nama;
                 document.getElementById('certNISN').textContent = currentUser.nisn;
 
-                // Setup download link
+                // Setup view link (opens PDF in new tab)
+                const viewLink = document.getElementById('viewLink');
+                viewLink.href = currentUser.url;
+                viewLink.target = '_blank';
+                viewLink.rel = 'noopener noreferrer';
+
+                // Setup download link (downloads PDF file)
                 const downloadLink = document.getElementById('downloadLink');
                 downloadLink.href = currentUser.url;
-                downloadLink.target = '_blank';
-                downloadLink.rel = 'noopener noreferrer';
+                downloadLink.download = true;
 
                 // Update Profil section (if elements exist)
                 const profileElements = {
