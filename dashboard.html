@@ -396,9 +396,16 @@
 
         // Initialize dashboard
         (async function() {
-            await requireLogin();
+            // Wait for auth system to initialize and load users
+            await auth.initPromise;
 
             currentUser = auth.getCurrentUser();
+            
+            // If not logged in, redirect to login.html
+            if (!currentUser) {
+                window.location.href = './login.html';
+                return;
+            }
 
             // Load user data
             function loadUserData() {

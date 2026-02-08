@@ -1,5 +1,5 @@
 # Cloudflare Pages Routes Configuration
 
-# Redirect root URL to dashboard.html
-# auth.js akan handle session checking dan redirect ke login.html jika diperlukan
-/  /dashboard.html  200
+# Redirect root URL to login.html (actual redirect, not rewrite)
+# requireLogout() di login.html akan auto-redirect ke dashboard.html jika user sudah login
+/  /login.html  301
