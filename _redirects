@@ -1,5 +1,5 @@
 # Cloudflare Pages Routes Configuration
 
-# SPA routing - redirect all undefined routes to dashboard.html
-# This allows auth.js to handle redirect to login.html if needed
-/*  /dashboard.html  200
+# Redirect root URL to dashboard.html
+# auth.js akan handle session checking dan redirect ke login.html jika diperlukan
+/  /dashboard.html  200
