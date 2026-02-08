@@ -301,10 +301,10 @@
                                     <i data-lucide="eye" class="w-5 h-5"></i>
                                     <span>Lihat</span>
                                 </a>
-                                <button id="downloadBtn" class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                                <a id="downloadLink" href="#" class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition cursor-pointer">
                                     <i data-lucide="download" class="w-5 h-5"></i>
                                     <span>Download</span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -449,25 +449,10 @@
                 viewLink.target = '_blank';
                 viewLink.rel = 'noopener noreferrer';
 
-                // Setup download button (downloads PDF file automatically)
-                const downloadBtn = document.getElementById('downloadBtn');
-                downloadBtn.addEventListener('click', async () => {
-                    try {
-                        const response = await fetch(currentUser.url);
-                        const blob = await response.blob();
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `Sertifikat-${currentUser.nama.replace(/\s+/g, '-')}.pdf`;
-                        document.body.appendChild(a);
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                        document.body.removeChild(a);
-                    } catch (error) {
-                        console.error('Download failed:', error);
-                        alert('Gagal mengunduh file. Silakan coba lagi.');
-                    }
-                });
+                // Setup download link
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = currentUser.url;
+                downloadLink.download = `Sertifikat-${currentUser.nama.replace(/\s+/g, '-')}.pdf`;
 
                 // Update Profil section (if elements exist)
                 const profileElements = {
